@@ -15,5 +15,15 @@ environment {
                 sh 'mvn clean deploy'
             }
         }
+    stage('SonarQube analysis') {
+    environment {
+        scannerHome = tool 'ahisri-sonar-server'
+    }
+    steps {
+    withSonarQubeEnv('ahisri-sonarqube-server'){
+        sh "${scannerHome}/bin/sonar-scanner"
+    }
+    }
+  }
     }
 }
